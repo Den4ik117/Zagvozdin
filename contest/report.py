@@ -103,16 +103,22 @@ class DataSet:
 
 
 class InputConnect:
-    def __init__(self):
-        self.file_name = input('Введите название файла: ')
-        self.vacancy_name = input('Введите название профессии: ')
-        # self.file_name = '../data/vacancies_by_year.csv'
-        # self.vacancy_name = 'Программист'
+    def __init__(self, file_name=None, vacancy_name=None):
+        self.file_name = input('Введите название файла: ') if file_name is None else file_name
+        self.vacancy_name = input('Введите название профессии: ') if vacancy_name is None else vacancy_name
 
+    def generate_all(self):
+        stats1, stats2, stats3, stats4, stats5, stats6 = self.generate_statistics(True)
+        self.generate_vacancies(stats1, stats2, stats3, stats4, stats5, stats6)
+
+    def generate_statistics(self, is_print=False):
         dataset = DataSet(self.file_name, self.vacancy_name)
         stats1, stats2, stats3, stats4, stats5, stats6 = dataset.get_statistic()
-        dataset.print_statistic(stats1, stats2, stats3, stats4, stats5, stats6)
+        if is_print:
+            dataset.print_statistic(stats1, stats2, stats3, stats4, stats5, stats6)
+        return stats1, stats2, stats3, stats4, stats5, stats6
 
+    def generate_vacancies(self, stats1, stats2, stats3, stats4, stats5, stats6):
         report = Report(self.vacancy_name, stats1, stats2, stats3, stats4, stats5, stats6)
         report.generate_excel()
         report.generate_image()
@@ -243,4 +249,5 @@ class Report:
 
 
 if __name__ == '__main__':
-    InputConnect()
+    input_connect = InputConnect()
+    input_connect.generate_all()
