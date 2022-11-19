@@ -3,7 +3,7 @@ from contest.report import InputConnect
 VACANCIES = 'вакансии'
 STATISTICS = 'статистика'
 ALLOW_INPUTS = (VACANCIES, STATISTICS)
-TEXT_INPUT = 'Выводим вакансии или статистику? Введите одно из двух: '
+TEXT_INPUT = 'Выводим вакансии или статистику? Введите 1 из 2: '
 TEXT_ERROR = 'Некорректное значение ввода, попробуйте, пожалуйста, ещё раз.'
 FILE_NAME = '../data/vacancies_by_year.csv'
 VACANCY_NAME = 'Программист'
