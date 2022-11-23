@@ -3,4 +3,4 @@ def say_hello(name):
 
 
 if __name__ == '__main__':
-    say_hello('Alex')
+    say_hello('Kim')
