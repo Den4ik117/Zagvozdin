@@ -12,7 +12,7 @@ class Vacancy:
         salary_from (int): Нижняя граница вилки зарплаты
         salary_to (int): Верхняя граница вилки зарплаты
         salary_currency (str): Валюта оклада
-        salary_average (int): Среднее значение зарплаты
+        salary_average (int): Среднее значение зарплаты в рублях
         area_name (str): Территория, на которой числится вакансия
         year (int): Год публикации вакансии
     """
@@ -24,6 +24,22 @@ class Vacancy:
     def __init__(self, vacancy):
         """Инициализирует объект Vacancy, высчитывает среднюю зарплату и производит конвертацию для целочисленных полей
 
+        >>> vacancy_for_tests = Vacancy({'name': 'IT', 'salary_from': '200.00', 'salary_to': '240.00', 'salary_currency': 'GEL', 'area_name': 'Romania', 'published_at': '2020-09-20'})
+        >>> type(vacancy_for_tests).__name__
+        'Vacancy'
+        >>> vacancy_for_tests.name
+        'IT'
+        >>> vacancy_for_tests.salary_from
+        200
+        >>> vacancy_for_tests.salary_to
+        240
+        >>> vacancy_for_tests.salary_currency
+        'GEL'
+        >>> vacancy_for_tests.area_name
+        'Romania'
+        >>> vacancy_for_tests.year
+        2020
+
         Args:
             vacancy (dict[str, str]): Словарь вакансии, из которого инициализируются переменные объекта
         """
@@ -31,9 +47,34 @@ class Vacancy:
         self.salary_from = int(float(vacancy['salary_from']))
         self.salary_to = int(float(vacancy['salary_to']))
         self.salary_currency = vacancy['salary_currency']
-        self.salary_average = self.currency_to_rub[self.salary_currency] * (self.salary_from + self.salary_to) / 2
+        self.salary_average = self.get_average_salary()
         self.area_name = vacancy['area_name']
         self.year = int(vacancy['published_at'][:4])
+
+    def get_average_salary(self):
+        """Метод высчитывает среднюю зарплату в рублях
+
+        >>> vacancy_for_tests = Vacancy({'name': 'IT', 'salary_from': '200.00', 'salary_to': '240.00', 'salary_currency': 'GEL', 'area_name': 'Romania', 'published_at': '2020-09-20'})
+        >>> vacancy_for_tests.get_average_salary()
+        4782.8
+        >>> vacancy_for_tests.salary_currency = 'RUR'
+        >>> vacancy_for_tests.get_average_salary()
+        220.0
+        >>> vacancy_for_tests.salary_currency = 'USD'
+        >>> vacancy_for_tests.get_average_salary()
+        13345.2
+        >>> vacancy_for_tests.salary_currency = 'KZT'
+        >>> vacancy_for_tests.get_average_salary()
+        28.6
+        >>> vacancy_for_tests.salary_currency = 'KGS'
+        >>> vacancy_for_tests.salary_from = 180
+        >>> vacancy_for_tests.get_average_salary()
+        159.6
+
+        Returns:
+            int: Средняя зарплата в рублях
+        """
+        return round(self.currency_to_rub[self.salary_currency] * (self.salary_from + self.salary_to) / 2, 1)
 
 
 class DataSet:
@@ -56,6 +97,27 @@ class DataSet:
     @staticmethod
     def increment(dictionary, key, amount):
         """Статический метод, либо добавляет, либо создаёт новый ключ в словаре
+
+        >>> dict_for_tests = {}
+        >>> DataSet.increment(dict_for_tests, 2020, 10)
+        >>> dict_for_tests
+        {2020: 10}
+        >>> DataSet.increment(dict_for_tests, 2020, 15)
+        >>> dict_for_tests
+        {2020: 25}
+        >>> dict_for_tests = {}
+        >>> DataSet.increment(dict_for_tests, 'key', [1])
+        >>> dict_for_tests
+        {'key': [1]}
+        >>> DataSet.increment(dict_for_tests, 'key', [100])
+        >>> dict_for_tests
+        {'key': [1, 100]}
+        >>> DataSet.increment(dict_for_tests, 'another', 17)
+        >>> dict_for_tests
+        {'key': [1, 100], 'another': 17}
+        >>> DataSet.increment(dict_for_tests, 'another', 1)
+        >>> dict_for_tests
+        {'key': [1, 100], 'another': 18}
 
         Args:
             dictionary (dict): Словарь
@@ -96,6 +158,16 @@ class DataSet:
                 if '' not in row and len(row) == header_length:
                     yield dict(zip(header, row))
 
+    @staticmethod
+    def sort_list_of_tuples_by_value(list_of_tuples, reverse=True):
+        """Сортирует список таплов по последнему значению
+
+        Args:
+            list_of_tuples ((int, int)[]): Лист таплов для сортировке, где предполагается, что 1 значение - ключ, 2 значение - значение
+            reverse (bool): порядок сортировка, по умолчанию True
+        """
+        list_of_tuples.sort(key=lambda a: a[-1], reverse=reverse)
+
     def get_statistic(self):
         """Собирает, генерирует и возвращает статистику по вакансиям
 
@@ -130,11 +202,11 @@ class DataSet:
         for year, salaries in salary_city.items():
             stats4[year] = round(len(salaries) / count_of_vacancies, 4)
         stats4 = list(filter(lambda a: a[-1] >= 0.01, [(key, value) for key, value in stats4.items()]))
-        stats4.sort(key=lambda a: a[-1], reverse=True)
+        self.sort_list_of_tuples_by_value(stats4)
         stats5 = stats4.copy()
         stats4 = dict(stats4)
         stats3 = list(filter(lambda a: a[0] in list(stats4.keys()), [(key, value) for key, value in stats3.items()]))
-        stats3.sort(key=lambda a: a[-1], reverse=True)
+        self.sort_list_of_tuples_by_value(stats3)
         stats3 = dict(stats3[:10])
         stats5 = dict(stats5[:10])
 
