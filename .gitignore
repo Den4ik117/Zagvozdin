@@ -1,4 +1,5 @@
 /.idea
 /venv
 /data/*.csv
-/contest/__pycache__
+/elearn/__pycache__
+/chunks/*.csv

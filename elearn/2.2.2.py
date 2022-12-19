@@ -1,4 +1,4 @@
-from contest.report import InputConnect
+from elearn.report import InputConnect
 
 VACANCIES = 'вакансии'
 STATISTICS = 'статистика'

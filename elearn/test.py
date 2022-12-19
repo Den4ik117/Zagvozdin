@@ -1,5 +1,5 @@
 from unittest import TestCase
-from contest.main import DataSet
+from elearn.main import DataSet
 
 
 class DataSetTests(TestCase):

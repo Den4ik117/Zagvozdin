@@ -1,5 +1,5 @@
 import cProfile
-from contest.main import DataSet
+from elearn.main import DataSet
 import datetime
 from dateutil.parser import parse
 
