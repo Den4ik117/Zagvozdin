@@ -38,3 +38,7 @@
 
 #### sixth_date_parser()
 ![sixth_date_parser](images/image_8.png)
+
+
+### Разделение одного большого CSV-файла на чанки
+![chunks](images/image_9.png)
