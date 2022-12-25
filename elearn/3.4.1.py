@@ -4,7 +4,7 @@ import numpy as np
 
 PATH_TO_INPUT_FILE_1 = '../data/vacancies_dif_currencies.csv'
 PATH_TO_INPUT_FILE_2 = '../data/currency_value.csv'
-PATH_TO_OUTPUT_FILE = '../data/converted_vacancies_dif_currencies.csv'
+PATH_TO_OUTPUT_FILE = '../data/converted_vacancies_dif_currencies_full.csv'
 
 
 class Converter:
