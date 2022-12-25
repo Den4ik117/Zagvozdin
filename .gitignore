@@ -4,3 +4,4 @@
 /elearn/__pycache__
 /chunks/*.csv
 !/data/converted_vacancies_dif_currencies.csv
+!/data/api_vacancies.csv
