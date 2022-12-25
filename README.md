@@ -53,3 +53,11 @@
 
 #### concurrent.futures
 ![concurrent.futures](images/image_12.png)
+
+### Курсы валют
+
+#### Частотность, с которой встречаются различные валюты
+![Частотность, с которой встречаются различные валюты](images/image_13.png)
+
+#### Полученный DataFrame в CSV формате 
+![Полученный DataFrame в CSV формате](images/image_14.png)
