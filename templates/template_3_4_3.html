@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Report 3.4.2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Jost', sans-serif;
+            padding: 0 16px;
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Аналитика для профессии «{{ stats.chosen_vacancy }}»</h1>
+    <h2>Статистика по всем городам</h2>
+    <div>
+        <table style="width: 47%; float: left;">
+            <thead>
+            <tr>
+                <th>Город</th>
+                <th>Средняя зарплата, руб.</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in stats.salaries %}
+                <tr>
+                    <th>{{ row[0] }}</th>
+                    <th>{{ row[1] }}</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table style="width: 47%; float: right;">
+            <thead>
+            <tr>
+                <th>Город</th>
+                <th>Доля вакансий по городу</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in stats.frequencies %}
+                <tr>
+                    <th>{{ row[0] }}</th>
+                    <th>{{ row[1] }}</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <h2 style="padding-top: 30px;">Средняя зарплата и количество вакансий по профессии «{{ stats.chosen_vacancy }}» по городу {{ stats.area_name }}</h2>
+    <table style="border-collapse: collapse; margin: 0 auto;">
+        <thead>
+            <tr>
+                <th>Год</th>
+                <th>Средняя зарплата</th>
+                <th>Количество вакансий</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stats.chosen %}
+            <tr>
+                <th>{{ row.year }}</th>
+                <th>{{ row.salary }}</th>
+                <th>{{ row.count }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
