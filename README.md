@@ -50,3 +50,6 @@
 
 #### Multiprocessing
 ![with_multiprocessing](images/image_11.png)
+
+#### concurrent.futures
+![concurrent.futures](images/image_12.png)
