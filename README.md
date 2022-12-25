@@ -42,3 +42,11 @@
 
 ### Разделение одного большого CSV-файла на чанки
 ![chunks](images/image_9.png)
+
+### Многопроцессорная обработка
+
+#### Без многопроцессорной обработки
+![without_multiprocessing](images/image_10.png)
+
+#### Multiprocessing
+![with_multiprocessing](images/image_11.png)
