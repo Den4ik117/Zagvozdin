@@ -75,4 +75,4 @@ class Converter:
 
 if __name__ == '__main__':
     converter = Converter(PATH_TO_INPUT_FILE_1, PATH_TO_INPUT_FILE_2)
-    converter.get_converted_dataframe(only_head=True)
+    converter.get_converted_dataframe(only_head=False)
