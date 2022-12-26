@@ -4,3 +4,4 @@
 /elearn/__pycache__
 /chunks/*.csv
 !/data/api_vacancies.csv
+/database/database.db

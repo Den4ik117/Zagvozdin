@@ -41,7 +41,7 @@ class Converter:
         df = self.source_file.copy()
         if only_head:
             df = df.head(100)
-        df['published_at'] = df['published_at'].apply(lambda x: x[:7])
+        df['published_at'] = df['published_at'].apply(lambda x: x[:10])
         df['salary'] = df.apply(lambda x: self.transform_row(x), axis=1)
         df = df[['name', 'salary', 'area_name', 'published_at']]
         df.to_sql(name=TABLE_NAME, con=self.con, if_exists='replace')
@@ -74,7 +74,7 @@ class Converter:
             int or None: возвращает число, если запись найдена, иначе ― None
         """
         try:
-            res = self.con.execute('SELECT {0} FROM `currency_value` WHERE `date` = "{1}"'.format(currency, date)).fetchone()
+            res = self.con.execute('SELECT {0} FROM `currency_value` WHERE `date` = "{1}"'.format(currency, date[:7])).fetchone()
         except:
             return None
         return res[0] if bool(res) else None
@@ -82,4 +82,4 @@ class Converter:
 
 if __name__ == '__main__':
     converter = Converter(PATH_TO_INPUT_FILE_1, PATH_TO_INPUT_FILE_2, DATABASE)
-    converter.get_converted_dataframe(only_head=True)
+    converter.get_converted_dataframe(only_head=False)
